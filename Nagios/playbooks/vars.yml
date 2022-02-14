@@ -1,0 +1,18 @@
+---
+# Nagios_Core version
+nagios_version: 4.4.6
+
+# The targets that the make cmd runs against.
+# Remove / Add things as necessary, however this may 
+# require additional manual setup.
+make_list:
+    - all
+    - install-groups-users
+    - install
+    - install-daemoninit
+    - install-commandmode
+    - install-config
+    - install-webconf
+
+# This is for when configuring the Nagios Installation 
+extra_configure_args: ""

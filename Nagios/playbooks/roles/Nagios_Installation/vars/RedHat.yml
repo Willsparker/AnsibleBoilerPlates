@@ -1,0 +1,14 @@
+---
+pkg_list:
+        - gcc
+        - glibc
+        - glibc-common
+        - perl
+        - httpd
+        - php
+        - wget
+        - gd
+        - gd-devel
+
+apache_user: "apache"
+apache2_service: "httpd.service"

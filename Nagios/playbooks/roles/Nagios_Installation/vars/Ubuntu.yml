@@ -1,0 +1,22 @@
+---
+pkg_list:
+        - build-essential
+        - apache2
+        - php
+        - openssl
+        - perl
+        - make
+        - php-gd
+        - python3-passlib       # Required for `htpasswd` module
+        - libgd-dev
+        - libapache2-mod-php
+        - libperl-dev
+        - libssl-dev
+        - daemon
+        - wget
+        - apache2-utils
+        - unzip
+
+extra_configure_args: "--with-httpd-conf=/etc/apache2/sites-enabled"
+apache_user: "www-data"
+apache2_service: "apache2.service"

@@ -1,0 +1,10 @@
+---
+- name: Install Nagios
+  hosts: Ubuntu
+  vars_files:
+    - secrets.yml
+    - vars.yml
+  tasks:
+    - name: Include Ansible installation role
+      include_role: 
+        name: Nagios_Installation

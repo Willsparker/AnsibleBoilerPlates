@@ -1,0 +1,14 @@
+---
+pkg_list:
+        - httpd
+        - php
+        - php-cli
+        - gcc
+        - unzip
+        - wget
+        - glibc
+        - glibc-common
+        - gd
+        - gd-devel
+        - net-snmp
+        - ":Development Tools"
