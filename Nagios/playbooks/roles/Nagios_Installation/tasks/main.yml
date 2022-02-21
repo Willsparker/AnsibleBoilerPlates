@@ -5,9 +5,10 @@
 - name: Include distribution variables
   include_vars: "{{ ansible_distribution }}.yml"
 
-  #- name: Check Nagios Installation
-  #service_facts:
-  #  name: nagios
+- name: Check Nagios Installation
+  stat:
+    path: /usr/local/nagios/etc/nagios.cfg
+  register: nagios_installation
 
 - name: Install dependencies for building Nagios Core {{ nagios_version }}
   package:
@@ -17,12 +18,14 @@
   loop: "{{ pkg_list }}"
   loop_control:
     loop_var: pkg_name
+  when: not nagios_installation.stat.exists
 
 - name: Download + Unpack Nagios Core {{ nagios_version }} source
   unarchive:
     src: "https://assets.nagios.com/downloads/nagioscore/releases/nagios-{{ nagios_version }}.tar.gz"
     remote_src: yes
     dest: "/tmp"
+  when: not nagios_installation.stat.exists
 
 # 'Creates' argument keeps the playbook idempotent.
 - name: Run './configure' on source.
@@ -30,12 +33,14 @@
     cmd: "./configure {{ extra_configure_args }}"
     chdir: "/tmp/nagios-{{ nagios_version }}/"
     creates: "/tmp/nagios-{{ nagios_version }}/Makefile"
+  when: not nagios_installation.stat.exists
 
 - name: Sanity check make_list
   debug:
     var: make_list
+  when: not nagios_installation.stat.exists
 
-# This task is most certainly not idempotent. Need to fix.
+# The 'when' field should make this idempotent.
 - name: Run Make commands
   make:
     chdir: "/tmp/nagios-{{ nagios_version }}"
@@ -43,11 +48,10 @@
     params:
       NUM_THREADS: "{{ ansible_processor_vcpus }}"
   become: yes
-  # Hacky
-  ignore_errors: yes
   loop: "{{ make_list }}"
   loop_control:
     loop_var: make_target
+  when: not nagios_installation.stat.exists
 
 - name: Add '{{ apache_user }}' user to 'nagios' group
   user:
@@ -72,16 +76,6 @@
   when: 
     - '"install-webconf" in make_list'
     - ansible_distribution == "Ubuntu"
-
-# Appears to casuse connection issues ... ?
-- name: Configure UFW for Ubuntu
-  ufw:
-    rule: allow
-    name: Apache
-    state: enabled
-  become: yes
-  when: False
-  #- ansible_distribution == "Ubuntu"
 
 - name: Configure Firewalld for RHEL
   firewalld:
