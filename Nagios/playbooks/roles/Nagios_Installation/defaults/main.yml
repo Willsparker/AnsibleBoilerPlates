@@ -5,6 +5,7 @@
 nagios_admin_pass: password
 
 nagios_version: 4.4.6
+nagios_plugins_version: 2.3.3
 
 make_list:
     - all
@@ -16,3 +17,7 @@ make_list:
     - install-webconf
 
 extra_configure_args: ""
+
+install_list:
+    - install_core
+    - install_plugins

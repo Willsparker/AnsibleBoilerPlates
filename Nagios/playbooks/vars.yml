@@ -2,9 +2,20 @@
 # Nagios_Core version
 nagios_version: 4.4.6
 
+# Nagios_Plugins version
+nagios_plugins_version: 2.4.0
+
 # The targets that the make cmd runs against.
 # Remove / Add things as necessary, however this may 
 # require additional manual setup.
+# Viable Options:
+#   - all
+#   - install-groups-users
+#   - install
+#   - install-daemoninit
+#   - install-commandmode
+#   - install-config
+#   - install-webconf
 make_list:
     - all
     - install-groups-users
@@ -16,3 +27,12 @@ make_list:
 
 # This is for when configuring the Nagios Installation 
 extra_configure_args: ""
+
+# List of items this playbook will install.
+#
+# Viable options:
+#   - install_core
+#   - install_plugins
+install_list:
+    - install_core
+    - install_plugins
