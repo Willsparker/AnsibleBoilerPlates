@@ -1,4 +1,19 @@
 ---
+plugin_pkg_list:
+        - gcc 
+        - glibc 
+        - glibc-common
+        - make
+        - gettext
+        - automake
+        - autoconf
+        - wget 
+        - openssl-devel
+        - net-snmp 
+        - net-snmp-utils
+        - epel-release
+        - perl-Net-SNMP
+
 pkg_list:
         - httpd
         - php
