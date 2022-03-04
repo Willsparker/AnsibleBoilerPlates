@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<SCRIPT
+# CentOS8 is EOL, need to replace AppStream / BaseOS yum repos
+for RepoName in BaseOS AppStream PowerTools
+do
+  sudo sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-Linux-${RepoName}.repo
+  sudo sed -i -e '$ a baseurl=http://vault.centos.org/\$contentdir/\$releasever/'"${RepoName}"'/\$basearch/os/' /etc/yum.repos.d/CentOS-Linux-${RepoName}.repo
+done
+
+sudo yum -y update
+# Put the host machine's IP into the authorised_keys file on the VM
+[ -r /vagrant/id_rsa.pub ] && mkdir -p $HOME/.ssh && cat /vagrant/id_rsa.pub >> $HOME/.ssh/authorized_keys
+SCRIPT
+
+# 2 = version of configuration file for Vagrant 1.1+ leading up to 2.0.x
+Vagrant.configure("2") do |config|
+
+  config.vm.define :CentOS8 do |centOS8|
+    centOS8.vm.box = "generic/centos8"
+    centOS8.vm.synced_folder ".", "/vagrant"
+    centOS8.vm.hostname = "NagiosHost"
+    centOS8.vm.network :private_network, ip: '192.168.50.57'
+    centOS8.vm.provision "shell", inline: $script, privileged: false
+  end
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.memory = 5120
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+  end
+end

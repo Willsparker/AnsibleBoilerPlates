@@ -1,14 +1,17 @@
-## Ansible Playbook: Nagios Installation
-
 Based off the installation guide: https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html
 
-Will install Nagios-Core onto an Ubuntu2004 VM. I used Vagrant to create the VM, and the Vagrantfile has been provided, however the aim is that this is translatable to real-life systems. This should hopefully also apply to Ubuntu 2104.  
+Some Vagrantfiles have also been provided that can be used to demonstrate the playbooks working.
 
-_vars.yml_ is where user-set variables are. Stuff like `make_list`.
+A collection of playbooks:
+  - play_setup_server.yml: Setups the Nagios Master Server.
+  - play_setup_hosts.yml: Configures hosts and adds them to the Nagios Master Server.
 
-_secret.yml_ is where the `nagios_admin_pass` variable is; the vault password is 'password'. This is just to demonstrate the use of Ansible-Vault within this playbook.
+The vars and secrets files follow this naming convention of "X_setup_[server|hosts].yml"
 
-### Future Enhancements
+_vars_ is where user-set variables are. Stuff like `make_list`.
+_secrets_ is where the `nagios_admin_pass` variable is; the vault password is 'password', as this is just for demonstration purposes.
 
-- [] Extend to ensure this works with RHEL8
-- [] Extend to include installation of the Nagios plugins
+TODO:
+  - CentOS8/RHEL8 have a weird bug where even after nagios-core installation, the nagios.service doesn't exist
+  - Get the playbook to add hosts to a Nagios Server working properly
+  - Write a proper readme taht steps through how to execute and run all of this

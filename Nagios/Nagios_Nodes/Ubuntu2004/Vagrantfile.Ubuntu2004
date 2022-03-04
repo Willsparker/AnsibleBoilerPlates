@@ -1,0 +1,28 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<SCRIPT
+# Put the host machine's IP into the authorised_keys file on the VM
+if [ -r /vagrant/id_rsa.pub ]; then
+        mkdir -p $HOME/.ssh && cat /vagrant/id_rsa.pub >> $HOME/.ssh/authorized_keys
+fi
+
+sudo apt update && sudo apt upgrade -y
+SCRIPT
+
+# 2 = version of configuration file for Vagrant 1.1+ leading up to 2.0.x
+Vagrant.configure("2") do |config|
+
+  config.vm.define :Ubuntu2004 do |ubuntu2004|
+    ubuntu2004.vm.box = "generic/ubuntu2004"
+    ubuntu2004.vm.synced_folder ".", "/vagrant"
+    ubuntu2004.vm.hostname = "Nagios"
+    ubuntu2004.vm.network :private_network, ip: '192.168.50.56'
+    ubuntu2004.vm.provision "shell", inline: $script, privileged: false
+  end
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.memory = 5120
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+  end
+end

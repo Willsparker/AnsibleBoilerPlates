@@ -13,6 +13,7 @@ plugin_pkg_list:
         - net-snmp-utils
         - epel-release
         - perl-Net-SNMP
+        - python3-passlib
 
 pkg_list:
         - gcc

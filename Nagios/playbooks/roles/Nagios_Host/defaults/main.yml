@@ -1,0 +1,5 @@
+---
+# defaults file for Nagios_Host
+#
+
+nagios_plugins_version: 2.3.3

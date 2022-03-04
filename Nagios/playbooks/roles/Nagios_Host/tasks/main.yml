@@ -1,0 +1,21 @@
+---
+# tasks file for Nagios_Host
+
+- name: Include distribution variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- name: Prep host
+  include_tasks: "prep_tasks/Common.yml"
+
+- name: Install Nagios Plugins
+  include_tasks: install_nagios_plugins.yml
+
+- name: Add host to Nagios Server
+  include_tasks: add_to_server.yml
+
+# Delegate to nagios Server:
+#   - ssh-copy-id to the new client's nagios user
+#   - Check connection task
+#   - use template to add to /usr/local/nagios/etc/servers
+#   - hostgroup definition
+#   - Verify the nagios configuration (as handler)

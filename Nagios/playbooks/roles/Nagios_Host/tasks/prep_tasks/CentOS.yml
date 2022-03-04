@@ -1,0 +1,14 @@
+---
+
+# Tasks that apply to specific platforms go here.
+
+# According to the official documentation, this is required;
+# however the package has an unresolved dependency, and plugins
+# can be built without it, hence the `when: no`.
+- name: Install perl-Net-SNMP
+  yum:
+    name: perl-Net-SNMP
+    state: latest
+    enablerepo: "PowerTools,epel"
+  become: yes
+  when: no

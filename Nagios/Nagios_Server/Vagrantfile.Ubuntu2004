@@ -13,12 +13,12 @@ SCRIPT
 # 2 = version of configuration file for Vagrant 1.1+ leading up to 2.0.x
 Vagrant.configure("2") do |config|
 
-  config.vm.define :U20 do |U20|
-    U20.vm.box = "generic/ubuntu2004"
-    U20.vm.synced_folder ".", "/vagrant"
-    U20.vm.hostname = "Nagios"
-    U20.vm.network :private_network, ip: '192.168.50.55'
-    U20.vm.provision "shell", inline: $script, privileged: false
+  config.vm.define :u20 do |u20|
+    u20.vm.box = "generic/ubuntu2004"
+    u20.vm.synced_folder ".", "/vagrant"
+    u20.vm.hostname = "Nagios"
+    u20.vm.network :private_network, ip: '192.168.50.55'
+    u20.vm.provision "shell", inline: $script, privileged: false
   end
   config.vm.provider "virtualbox" do |v|
     v.gui = false

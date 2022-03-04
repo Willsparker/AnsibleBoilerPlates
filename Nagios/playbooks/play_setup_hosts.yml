@@ -1,0 +1,9 @@
+---
+- name: Add host to Nagios Server
+  hosts: Monitor_Nodes
+  vars_files:
+    - vars_setup_hosts.yml
+  tasks:
+    - name: Include Nagios Host role
+      include_role:
+        name: Nagios_Host

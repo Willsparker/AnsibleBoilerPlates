@@ -1,18 +1,19 @@
 ---
 plugin_pkg_list:
-        - gcc 
-        - glibc 
+        - gcc
+        - glibc
         - glibc-common
         - make
         - gettext
         - automake
         - autoconf
-        - wget 
+        - wget
         - openssl-devel
-        - net-snmp 
+        - net-snmp
         - net-snmp-utils
         - epel-release
         - perl-Net-SNMP
+        - python3-passlib
 
 pkg_list:
         - httpd
@@ -26,4 +27,6 @@ pkg_list:
         - gd
         - gd-devel
         - net-snmp
-        - ":Development Tools"
+        - mod_ssl
+
+apache_user: apache

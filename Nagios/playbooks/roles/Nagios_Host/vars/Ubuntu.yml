@@ -1,0 +1,15 @@
+---
+plugin_pkg_list:
+  - autoconf
+  - gcc
+  - libc6
+  - libmcrypt-dev
+  - make
+  - libssl-dev
+  - wget
+  - bc
+  - gawk
+  - build-essential
+  - snmp
+  - libnet-snmp-perl
+  - gettext

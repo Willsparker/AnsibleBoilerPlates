@@ -1,0 +1,7 @@
+---
+# Delegate to nagios Server:
+#   - ssh-copy-id to the new client's nagios user
+#   - Check connection task
+#   - use template to add to /usr/local/nagios/etc/servers
+#   - hostgroup definition
+#   - Verify the nagios configuration (as handler)

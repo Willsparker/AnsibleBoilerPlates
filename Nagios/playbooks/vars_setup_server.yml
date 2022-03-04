@@ -33,8 +33,7 @@ extra_configure_args: ""
 # Viable options:
 #   - install_core
 #   - install_plugins
-#   - configure_nagios
 task_list:
-    - install_core
-    - install_plugins
+#    - install_core
+        #    - install_plugins
     - configure_nagios

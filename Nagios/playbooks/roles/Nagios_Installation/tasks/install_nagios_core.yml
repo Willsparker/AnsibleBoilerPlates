@@ -88,16 +88,16 @@
     state: present
   become: yes
 
-- name: Restart Apache Web Server
+- name: Restart Nagios
   service:
-    name: "{{ apache2_service }}"
+    name: nagios
     state: restarted
     enabled: yes
   become: yes
 
-- name: Restart/Start the Nagios Service
+- name: Restart Apache
   service:
-    name: nagios
+    name: "{{ apache2_service }}"
     state: restarted
     enabled: yes
   become: yes
