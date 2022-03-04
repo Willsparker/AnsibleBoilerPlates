@@ -1,0 +1,24 @@
+---
+
+- name: Ensure that cfg_dir includes `/usr/local/nagios/etc/servers`
+  lineinfile:
+    path: /usr/local/nagios/etc/nagios.cfg
+    regexp: '#cfg_dir=/usr/local/nagios/etc/servers'
+    line: 'cfg_dir=/usr/local/nagios/etc/servers'
+  become: yes
+
+- name: Create servers folder
+  file:
+    path: /usr/local/nagios/etc/servers
+    state: directory
+    owner: nagios
+    group: nagios
+  become: yes
+
+# I hate that `include_tasks` doesn't allow for handlers
+- name: Restart Nagios
+  service:
+    name: nagios
+    state: restarted
+    enabled: yes
+  become: yes

@@ -6,8 +6,12 @@
 
 - name: Run Nagios-Core Installation
   include_tasks: install_nagios_core.yml
-  when: '"install_core" in install_list'
+  when: '"install_core" in task_list'
 
 - name: Run Nagios-Plugins installation
   include_tasks: install_nagios_plugins.yml
-  when: '"install_plugins" in install_list'
+  when: '"install_plugins" in task_list'
+
+- name: Configure Nagios-Core
+  include_tasks: configure_nagios_core.yml
+  when: '"configure_nagios" in task_list'

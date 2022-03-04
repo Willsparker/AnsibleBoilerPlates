@@ -18,6 +18,7 @@ make_list:
 
 extra_configure_args: ""
 
-install_list:
+task_list:
     - install_core
     - install_plugins
+    - configure_nagios
